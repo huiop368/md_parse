@@ -12,10 +12,22 @@ var isCode = function isCode(element) {
   var type = element[0];
   return type === 'pre' && element[1].lang === 'jsx';
 };
-var isWalleCode = function isCode(element) {
+var isWalleCode = function isWalleCode(element) {
   var type = element[0];
   return type === 'pre' && element[1].lang === 'walle';
 };
+var isWalleTpl = function isWalleTpl(element){
+  var type = element[0];
+  return type === 'pre' && element[1].lang === 'walletpl';
+}
+var isWalleJs = function isWalleJs(element){
+  var type = element[0];
+  return type === 'pre' && element[1].lang === 'wallejs';
+}
+var isWalleCss = function isWalleCss(element){
+  var type = element[0];
+  return type === 'pre' && element[1].lang === 'wallecss';
+}
 var isCssCode = function isCssCode(element) {
   return element && JsonML.isElement(element) &&
     JsonML.getTagName(element) === 'pre' &&
@@ -65,9 +77,21 @@ function parseDemo(fileName, content) {
 
   var sourceCode = getCodeChildren(fileContentTree.find(isCode));
   var sourceWalleCode = getCodeChildren(fileContentTree.find(isWalleCode));
+  var sourceWalleTplCode = getCodeChildren(fileContentTree.find(isWalleTpl));
+  var sourceWalleJsCode = getCodeChildren(fileContentTree.find(isWalleJs));
+  var sourceWalleCssCode = getCodeChildren(fileContentTree.find(isWalleCss));
+
   demo.code = sourceCode;
+  demo.walleCode = sourceWalleCode;
+  demo.walleTpl = sourceWalleTplCode;
+  demo.walleJs = sourceWalleJsCode;
+  demo.walleCss = sourceWalleCssCode;
+
   demo.highlightedCode = Prism.highlight(sourceCode, Prism.languages.autoit);
   demo.highlightedWalleCode = sourceWalleCode && Prism.highlight(sourceWalleCode, Prism.languages.autoit);
+  demo.highlightedWalleTplCode = sourceWalleTplCode && Prism.highlight(sourceWalleTplCode, Prism.languages.autoit);
+  demo.highlightedWalleJsCode = sourceWalleJsCode && Prism.highlight(sourceWalleJsCode, Prism.languages.autoit);
+  demo.highlightedWalleCssCode = sourceWalleCssCode && Prism.highlight(sourceWalleCssCode, Prism.languages.autoit);
 
   // demo.preview = devil(sourceCode, ['React', 'ReactDOM']);
   var styleNode = fileContentTree.find(isStyle);
