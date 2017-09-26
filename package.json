@@ -1,6 +1,6 @@
 {
   "name": "md-parse",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Parse Markdown into JsonML.",
   "main": "index.js",
   "scripts": {
